@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 
-class MaxPrepRosterScraper:
+class MaxPrepRoster:
     """
     Scraper for Max Preps roster data. This class fetches and parses roster information.
     It only supports sports that have a roster page available on the Max Preps website.

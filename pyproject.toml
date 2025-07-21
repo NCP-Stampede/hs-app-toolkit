@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hs-scraper-toolkit"
 version = "1.0.0"
-description = "A comprehensive toolkit for scraping high school sports data"
+description = "A comprehensive toolkit for scraping high school data"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Tanmay Garg", email = "stampede.ncp@gmail.com"}
 ]
-keywords = ["scraping", "sports", "high school", "athletics", "maxpreps"]
+keywords = ["scraping", "sports", "high school", "athletics", "maxpreps", "athletic.net", "track", "field", "cross-country"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -28,6 +28,7 @@ dependencies = [
     "beautifulsoup4>=4.9.0",
     "requests>=2.25.0",
     "pandas>=1.3.0",
+    "selenium>=4.0.0",
 ]
 
 [project.optional-dependencies]
@@ -38,10 +39,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/hs-scraper-toolkit"
-Documentation = "https://github.com/yourusername/hs-scraper-toolkit#readme"
-Repository = "https://github.com/yourusername/hs-scraper-toolkit"
-"Bug Tracker" = "https://github.com/yourusername/hs-scraper-toolkit/issues"
+Homepage = "https://github.com/NCP-Stampede/hs-scraper-toolkit"
+Documentation = "https://github.com/NCP-Stampede/hs-scraper-toolkit#readme"
+Repository = "https://github.com/NCP-Stampede/hs-scraper-toolkit"
+"Bug Tracker" = "https://github.com/NCP-Stampede/hs-scraper-toolkit/issues"
 
 [tool.setuptools.packages.find]
 where = ["."]

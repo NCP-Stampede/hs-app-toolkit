@@ -2,13 +2,14 @@
 hs-scraper-toolkit: A comprehensive toolkit for scraping high school sports data.
 
 This package provides tools for scraping various high school sports websites
-including MaxPreps and other athletic data sources.
+including MaxPreps, Athletic.net, and other athletic data sources.
 """
 
 __version__ = "1.0.0"
 __author__ = "Tanmay Garg"
-__email__ = "stampede.ncp@example.com"
+__email__ = "stampede.ncp@gmail.com"
 
-from .Athletics.MaxPrepRosterScraper import MaxPrepRosterScraper
+from .Athletics.MaxPrepRoster import MaxPrepRoster
+from .Athletics.AthleticNetTrackField import AthleticNetTrackField
 
-__all__ = ["MaxPrepRosterScraper"]
+__all__ = ["MaxPrepRoster", "AthleticNetTrackField"]
