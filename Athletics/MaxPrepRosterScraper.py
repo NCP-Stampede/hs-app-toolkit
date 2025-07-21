@@ -34,18 +34,22 @@ class MaxPrepRosterScraper:
 
     # Method to scrape the roster data from the Max Preps website.
     # It fetches the HTML content, parses it, and extracts the roster information.
-    def scrape(self, sports=None, genders=None, seasons=None, levels=None) -> None:
+    def scrape(self, sports=None, genders=None, seasons=None, levels=None) -> pd.DataFrame:
         """
         Scrapes the roster data from the Max Preps website.
         This method fetches the HTML content of the roster page, parses it to find sports,
         and extracts the relevant roster information.
         If an error occurs during the request for sports, it prints an error message and returns.
         It populates the `roster` DataFrame with the relevant information.
-        :param sports: Optional parameter to specify sports to scrape. If None, it scrapes all available sports.
-        :param genders: Optional parameter to specify genders to scrape. If None, it scrapes all available genders.
-        :param seasons: Optional parameter to specify seasons to scrape. If None, it scrapes all available seasons.
-        :param levels: Optional parameter to specify levels to scrape. If None, it scrapes all available levels.
-        :return: None
+
+        Parameters:
+            sports (list): Optional parameter to specify sports to scrape. If None, it scrapes all available sports.
+            genders (list): Optional parameter to specify genders to scrape. If None, it scrapes all available genders.
+            seasons (list): Optional parameter to specify seasons to scrape. If None, it scrapes all available seasons.
+            levels (list): Optional parameter to specify levels to scrape. If None, it scrapes all available levels.
+
+        Returns:
+            self.roster (pd.DataFrame): A DataFrame containing the scraped roster information with columns:
         """
         # Tries to fetch the HTML content from the provided URL.
         try:
@@ -140,3 +144,6 @@ class MaxPrepRosterScraper:
                                     "position": positions[players.index(player)]
                                 }
                                 self.roster = pd.concat([self.roster, pd.DataFrame([athlete])], ignore_index=True)
+
+        # Returns the roster DataFrame containing all the scraped information
+        return self.roster
