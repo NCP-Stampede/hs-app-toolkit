@@ -10,8 +10,10 @@ A comprehensive toolkit for scraping high school sports data from various athlet
 
 - **MaxPreps Roster Scraping**: Extract detailed roster information including player names, numbers, positions, grades, and more
 - **Athletic.net Track & Field Data**: Scrape athlete rosters and event schedules for track & field and cross country
+- **School-Specific Modules**: Pre-built scrapers for specific schools (Northside College Prep and more)
 - **Flexible Filtering**: Filter data by sport, gender, season, and competition level
 - **Easy Integration**: Simple Python classes with pandas DataFrame outputs
+- **Extensible Design**: Framework for building custom school-specific scrapers
 - **Production Ready**: Publicly available on PyPI with proper packaging
 
 ## Installation
@@ -49,6 +51,10 @@ from hs_scraper_toolkit import AthleticNetTrackField, MaxPrepRoster
 # Or import from specific modules
 from hs_scraper_toolkit.Athletics.MaxPrepRoster import MaxPrepRoster
 from hs_scraper_toolkit.Athletics.AthleticNetTrackField import AthleticNetTrackField
+
+# School-specific modules
+from hs_scraper_toolkit.Northside.AthleticsSchedule import AthleticsSchedule
+from hs_scraper_toolkit.Northside.GeneralEvent import GeneralEvent
 ```
 
 ### MaxPreps Roster Scraping
@@ -91,6 +97,52 @@ events = scraper.scrape_events(['cross-country'], [2024, 2025])
 print(f"Found {len(athletes)} athletes")
 print(f"Found {len(events)} events")
 ```
+
+## School-Specific Modules
+
+### Northside College Prep
+
+The toolkit includes pre-built scrapers for Northside College Prep's specific websites:
+
+#### Athletics Schedule Scraping
+
+```python
+from hs_scraper_toolkit.Northside.AthleticsSchedule import AthleticsSchedule
+
+# Initialize scraper
+scraper = AthleticsSchedule()
+
+# Scrape athletics schedule (uses Selenium for dynamic content)
+schedule_data = scraper.scrape()
+
+print(f"Found {len(schedule_data)} scheduled events")
+print(schedule_data[['date', 'sport', 'opponent', 'location']].head())
+```
+
+#### General School Events
+
+```python
+from hs_scraper_toolkit.Northside.GeneralEvent import GeneralEvent
+
+# Initialize scraper (default: all months, 2025-2026)
+scraper = GeneralEvent()
+
+# Or specify custom date ranges
+scraper = GeneralEvent(
+    months=range(1, 7),  # January through June
+    years=range(2025, 2026)  # 2025 only
+)
+
+# Scrape school events
+events_data = scraper.scrape()
+
+print(f"Found {len(events_data)} school events")
+print(events_data.head())
+```
+
+**Note**: The Athletics Schedule scraper requires ChromeDriver to be installed and accessible in your system PATH.
+
+For detailed documentation on school-specific modules, see [docs/northside-modules.md](docs/northside-modules.md).
 
 ## Athletics Module
 
@@ -164,17 +216,87 @@ See the `example/main.py` file for comprehensive usage examples.
 
 ## Contributing
 
-We welcome contributions! Here's how to get started:
+We welcome contributions! This project especially encourages developers to contribute scrapers for their own school's websites.
+
+### Contributing School-Specific Scrapers
+
+**We want YOUR school's scrapers!** If you've built a scraper for your high school's athletics website, calendar system, or any other school-specific platform, we'd love to include it in the toolkit.
+
+#### Why Contribute Your School's Scrapers?
+
+- **Help Other Schools**: Your implementation can serve as a template for similar school websites
+- **Build Your Portfolio**: Get your code featured in a public package used by others
+- **Learn Best Practices**: Collaborate with other developers and improve your scraping skills
+- **Give Back**: Help build a comprehensive toolkit for the high school sports community
+
+#### How to Contribute a School-Specific Scraper
+
+1. **Create Your Module Structure**
+   ```
+   hs_scraper_toolkit/
+   └── YourSchoolName/
+       ├── __init__.py
+       ├── AthleticsSchedule.py
+       ├── EventCalendar.py
+       └── RosterData.py (optional)
+   ```
+
+2. **Follow the Established Patterns**
+   - Use pandas DataFrames for all output data
+   - Implement proper error handling and logging
+   - Include comprehensive docstrings and type hints
+   - Use consistent naming conventions (see existing modules)
+   - Handle dynamic content with appropriate tools (Selenium for JS, requests for static)
+
+3. **Include Documentation**
+   - Create a detailed README for your school's modules
+   - Document all available methods and data structures
+   - Provide usage examples and common troubleshooting tips
+   - List any special requirements (ChromeDriver, API keys, etc.)
+
+4. **Example Implementation Structure**
+   ```python
+   import pandas as pd
+   from selenium import webdriver
+   # or from requests import get
+
+   class YourSchoolAthleticsSchedule:
+       def __init__(self):
+           self.schedule = pd.DataFrame(columns=["date", "time", "sport", "opponent", "location"])
+       
+       def scrape(self):
+           # Your scraping logic here
+           return self.schedule
+   ```
+
+#### Schools We'd Love to See
+
+- **Public School Districts**: CPS, NYC DOE, LAUSD, and other major districts
+- **Private Schools**: Independent schools with unique website structures  
+- **Charter Schools**: KIPP, Success Academy, and other charter networks
+- **Specialized Schools**: Magnet schools, art schools, STEM academies
+- **Regional Powerhouses**: Schools known for specific sports or academics
+
+#### What to Include in Your Contribution
+
+- **Multiple Data Types**: Athletics, academics, general events, announcements
+- **Robust Scraping**: Handle pagination, dynamic loading, authentication if needed
+- **Data Standardization**: Follow existing column naming conventions
+- **Error Handling**: Graceful failures with informative error messages
+- **Documentation**: Clear examples and troubleshooting guides
+
+### General Contribution Guidelines
 
 1. Fork the repository on GitHub
 2. Clone your fork locally: `git clone https://github.com/YOUR-USERNAME/hs-scraper-toolkit.git`
-3. Create a feature branch: `git checkout -b feature-name`
+3. Create a feature branch: `git checkout -b add-[school-name]-scrapers`
 4. Install development dependencies: `pip install -e ".[dev]"`
-5. Make your changes and add tests if applicable
-6. Run tests and ensure code quality
-7. Commit your changes: `git commit -m "Add feature"`
-8. Push to your fork: `git push origin feature-name`
-9. Submit a pull request on GitHub
+5. **Add your school's directory and modules**
+6. **Update documentation and README**
+7. Run tests and ensure code quality
+8. Commit your changes: `git commit -m "Add [School Name] scrapers"`
+9. Push to your fork: `git push origin add-[school-name]-scrapers`
+10. Submit a pull request with detailed description
 
 ### Development Setup
 
@@ -196,6 +318,15 @@ black .
 flake8 .
 ```
 
+### Questions About Contributing?
+
+- **Check existing issues** for school requests or similar implementations
+- **Open a discussion** on GitHub to propose your school before starting
+- **Look at the Northside modules** (`hs_scraper_toolkit/Northside/`) as examples
+- **Ask questions** in GitHub Issues or Discussions - we're here to help!
+
+We're excited to see scrapers for schools across the country. Every contribution helps build a more comprehensive toolkit for the high school community!
+
 ## Changelog
 
 ### Version 1.0.1 (Latest)
@@ -216,6 +347,30 @@ flake8 .
 - **Issues**: Report bugs or request features on [GitHub Issues](https://github.com/NCP-Stampede/hs-scraper-toolkit/issues)
 - **Discussions**: Ask questions or discuss usage on [GitHub Discussions](https://github.com/NCP-Stampede/hs-scraper-toolkit/discussions)
 - **PyPI**: Visit the [PyPI package page](https://pypi.org/project/hs-scraper-toolkit/)
+- **Contributing Schools**: See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on adding your school's scrapers
+
+## School Contributions Wanted! 🏫
+
+We're actively seeking contributors to add scrapers for their high school websites! Whether your school uses:
+
+- **Custom athletics platforms** (TeamUp, SportsEngine, etc.)
+- **District-wide systems** (CPS, NYC DOE, LAUSD)
+- **School-specific websites** with unique structures
+- **Regional athletics associations** 
+
+Your contribution can help students, parents, and developers across the country access their school data programmatically.
+
+**Current School Modules:**
+- ✅ **Northside College Prep** (Chicago, IL) - Athletics Schedule & General Events
+
+**Schools We'd Love to See:**
+- 🎯 **Lane Tech College Prep** (Chicago, IL)
+- 🎯 **Whitney Young Magnet** (Chicago, IL) 
+- 🎯 **Walter Payton College Prep** (Chicago, IL)
+- 🎯 **Lincoln Park High School** (Chicago, IL)
+- 🎯 **Your School Here!**
+
+See our [detailed contribution guide](CONTRIBUTING.md) for step-by-step instructions on adding your school's scrapers.
 
 ## Disclaimer
 

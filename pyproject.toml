@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hs-scraper-toolkit"
-version = "1.0.1"
-description = "A comprehensive toolkit for scraping high school data"
+version = "1.1.0"
+description = "A comprehensive toolkit for scraping high school data with school-specific modules"
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
 authors = [
     {name = "Tanmay Garg", email = "stampede.ncp@gmail.com"}
 ]
-keywords = ["scraping", "sports", "high school", "athletics", "maxpreps", "athletic.net", "track", "field", "cross-country"]
+keywords = ["scraping", "sports", "high school", "athletics", "maxpreps", "athletic.net", "track", "field", "cross-country", "school-specific", "schedule", "events", "northside"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
