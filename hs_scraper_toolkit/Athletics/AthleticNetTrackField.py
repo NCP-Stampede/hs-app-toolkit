@@ -298,7 +298,6 @@ class AthleticNetTrackField:
                 continue
 
             columns = soup.find_all('div', class_='col-6 ng-star-inserted')
-            # print(columns)
 
             for column in columns:
                 athletes = column.find_all('span', class_='text-truncate')
