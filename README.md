@@ -6,6 +6,11 @@
 
 A comprehensive toolkit for scraping high school sports data from various athletic websites including MaxPreps and Athletic.net.
 
+This package is part of a multi-repository project:
+*   **`frontend_package`:** The reusable UI kit.
+*   **`backend_package` (This repo):** Handles scraping, storage in MongoDB, and Flask in the back.
+*   **`northside-app`:** A complete implementation and example of how to use these packages.
+
 ## Features
 
 - **MaxPreps Roster Scraping**: Extract detailed roster information including player names, numbers, positions, grades, and more
